@@ -1,6 +1,22 @@
 server:
   port: 8080
+  error:
+    include-message: always
 
 spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/customer
+    username: root
+    password: root
+    driver-class-name: org.postgresql.Driver
+  jpa:
+#    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true #set false in production environment
+    show-sql: true
   main:
     web-application-type: servlet

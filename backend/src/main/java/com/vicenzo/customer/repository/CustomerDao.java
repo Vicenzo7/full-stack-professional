@@ -1,4 +1,6 @@
-package com.vicenzo.customer;
+package com.vicenzo.customer.repository;
+
+import com.vicenzo.customer.Customer;
 
 import java.util.List;
 import java.util.Optional;

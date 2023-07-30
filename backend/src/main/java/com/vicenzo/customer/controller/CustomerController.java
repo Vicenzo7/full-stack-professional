@@ -1,5 +1,7 @@
-package com.vicenzo.customer;
+package com.vicenzo.customer.controller;
 
+import com.vicenzo.customer.Customer;
+import com.vicenzo.customer.service.CustomerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
