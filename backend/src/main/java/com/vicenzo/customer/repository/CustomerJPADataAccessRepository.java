@@ -1,6 +1,6 @@
 package com.vicenzo.customer.repository;
 
-import com.vicenzo.customer.Customer;
+import com.vicenzo.customer.model.Customer;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -22,5 +22,30 @@ public class CustomerJPADataAccessRepository implements CustomerDao {
     @Override
     public Optional<Customer> selectCustomerById(Integer customerId) {
         return customerRepository.findById(customerId);
+    }
+
+    @Override
+    public void insertCustomer(Customer customer) {
+        customerRepository.save(customer);
+    }
+
+    @Override
+    public boolean existsPersonWithEmail(String email) {
+        return customerRepository.existsCustomerByEmail(email);
+    }
+
+    @Override
+    public boolean existsPersonWithId(Integer id) {
+        return customerRepository.existsCustomerById(id);
+    }
+
+    @Override
+    public void deleteCustomerCustomerById(Integer id) {
+        customerRepository.deleteById(id);
+    }
+
+    @Override
+    public void updateCustomer(Customer customer) {
+        customerRepository.save(customer);
     }
 }

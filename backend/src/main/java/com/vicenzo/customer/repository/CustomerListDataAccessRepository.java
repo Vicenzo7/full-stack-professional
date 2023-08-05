@@ -1,10 +1,11 @@
 package com.vicenzo.customer.repository;
 
-import com.vicenzo.customer.Customer;
+import com.vicenzo.customer.model.Customer;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Repository("list")
@@ -31,5 +32,37 @@ public class CustomerListDataAccessRepository implements CustomerDao {
         return customers.stream()
                 .filter(c -> c.getId().equals(customerId))
                 .findFirst();
+    }
+
+    @Override
+    public void insertCustomer(Customer customer) {
+        customers.add(customer);
+    }
+
+    @Override
+    public boolean existsPersonWithEmail(String email) {
+        return customers.stream()
+                .anyMatch(c -> c.getEmail().equals(email));
+    }
+
+    @Override
+    public boolean existsPersonWithId(Integer id) {
+        return customers.stream()
+                .anyMatch(c -> c.getId().equals(id));
+
+    }
+
+    @Override
+    public void deleteCustomerCustomerById(Integer id) {
+        customers.stream()
+                .filter(c -> Objects.equals(c.getId(), id))
+                .findFirst()
+                .ifPresent(customers::remove);
+
+    }
+
+    @Override
+    public void updateCustomer(Customer customer) {
+        customers.add(customer);
     }
 }

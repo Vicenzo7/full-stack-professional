@@ -1,7 +1,7 @@
 package com.vicenzo;
 
 
-import com.vicenzo.customer.Customer;
+import com.vicenzo.customer.model.Customer;
 import com.vicenzo.customer.repository.CustomerRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -9,8 +9,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 
-import javax.sql.DataSource;
-import java.util.ArrayList;
 import java.util.List;
 
 @SpringBootApplication
@@ -29,7 +27,7 @@ public class Main {
             Customer jamila = new Customer("Jamila", "jamila@gmail.com", 21);
 
             List<Customer> customers = List.of(alex, jamila);
-            customerRepository.saveAll(customers);
+//            customerRepository.saveAll(customers);
         };
     }
 

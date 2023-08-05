@@ -1,13 +1,12 @@
 package com.vicenzo.customer.controller;
 
-import com.vicenzo.customer.Customer;
+import com.vicenzo.customer.model.Customer;
+import com.vicenzo.customer.dto.CustomerRegistrationRequest;
+import com.vicenzo.customer.dto.CustomerUpdateRequest;
 import com.vicenzo.customer.service.CustomerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -27,5 +26,21 @@ public class CustomerController {
     @GetMapping("customers/{customerId}")
     public Customer getCustomersById(@PathVariable Integer customerId) {
         return customerService.getCustomer(customerId);
+    }
+
+    @PostMapping("customers")
+    public void registerCustomer(@RequestBody CustomerRegistrationRequest customerRegistrationRequest) {
+        customerService.addCustomer(customerRegistrationRequest);
+    }
+
+    @DeleteMapping("customers/{customerId}")
+    public void deleteCustomersById(@PathVariable Integer customerId) {
+        customerService.deleteCustomerById(customerId);
+    }
+
+    @PutMapping("customers/{customerId}")
+    public void updateCustomer(@PathVariable("customerId") Integer customerId,
+                               @RequestBody CustomerUpdateRequest updateRequest) {
+        customerService.updateCustomer(customerId, updateRequest);
     }
 }

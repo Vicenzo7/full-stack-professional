@@ -1,19 +1,19 @@
 package com.vicenzo.customer.service;
 
-import com.vicenzo.customer.Customer;
+import com.vicenzo.customer.model.Customer;
+import com.vicenzo.customer.dto.CustomerRegistrationRequest;
+import com.vicenzo.customer.dto.CustomerUpdateRequest;
 import com.vicenzo.customer.repository.CustomerDao;
-import com.vicenzo.exception.ResourceNotFound;
-import lombok.NonNull;
+import com.vicenzo.exception.RequestValidationException;
+import com.vicenzo.exception.DuplicateResourceException;
+import com.vicenzo.exception.ResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
-import lombok.experimental.FieldNameConstants;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-
-import lombok.RequiredArgsConstructor;
-import lombok.experimental.FieldNameConstants;
 
 @Service
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
@@ -28,7 +28,55 @@ public class CustomerService {
 
     public Customer getCustomer(Integer customerId) {
         return customerDao.selectCustomerById(customerId)
-                .orElseThrow(() -> new ResourceNotFound("customer with id [%s] not found".formatted(customerId)));
+                .orElseThrow(() -> new ResourceNotFoundException("customer with id [%s] not found".formatted(customerId)));
+    }
+
+    public void addCustomer(CustomerRegistrationRequest customerRegistrationRequest) {
+        // check if email exist
+        String email = customerRegistrationRequest.email();
+        if (customerDao.existsPersonWithEmail(email)) {
+            throw new DuplicateResourceException("email already taken");
+        }
+        // add
+        Customer customer = new Customer(customerRegistrationRequest.name()
+                , customerRegistrationRequest.email(), customerRegistrationRequest.age());
+        customerDao.insertCustomer(customer);
+    }
+
+    public void deleteCustomerById(Integer customerId) {
+        // check if customer exist
+        if (!customerDao.existsPersonWithId(customerId)) {
+            throw new ResourceNotFoundException("customer with id [%s] not found".formatted(customerId));
+        }
+        customerDao.deleteCustomerCustomerById(customerId);
+    }
+
+    public void updateCustomer(Integer customerId, CustomerUpdateRequest updateRequest) {
+        // TODO: for jpa use getReferenceById(customerId) as it does
+        Customer customer = getCustomer(customerId);
+        boolean changes = false;
+        if (StringUtils.isNotBlank(updateRequest.name()) && !updateRequest.name().equals(customer.getName())) {
+            customer.setName(updateRequest.name());
+            changes = true;
+        }
+
+        if (StringUtils.isNotBlank(updateRequest.email()) && !updateRequest.email().equals(customer.getEmail())) {
+            if (customerDao.existsPersonWithEmail(updateRequest.email())) {
+                throw new DuplicateResourceException("email already taken");
+            }
+            customer.setEmail(updateRequest.email());
+            changes = true;
+        }
+
+        if (updateRequest.age() != null && !updateRequest.age().equals(customer.getAge())) {
+            customer.setAge(updateRequest.age());
+            changes = true;
+        }
+
+        if (!changes) {
+            throw new RequestValidationException("no data changes found");
+        }
+        customerDao.updateCustomer(customer);
     }
 }
 

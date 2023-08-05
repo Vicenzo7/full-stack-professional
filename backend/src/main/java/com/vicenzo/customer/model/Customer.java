@@ -1,4 +1,4 @@
-package com.vicenzo.customer;
+package com.vicenzo.customer.model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
