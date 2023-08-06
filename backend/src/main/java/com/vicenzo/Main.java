@@ -26,19 +26,18 @@ public class Main {
     @Bean
     CommandLineRunner runner(CustomerRepository customerRepository) {
         return args -> {
-            var faker = new Faker(); // use of var : The var keyword is used for type inference in Java,
-            // which means the compiler determines the type of the variable based on the right-hand side of the assignment.
-            Random random = new Random();
-
-            Name name = faker.name();
-            String firstName = name.firstName();
-            String lastName = name.lastName();
-            Customer customer = new Customer(
-                    String.format("%s %s", firstName, lastName),
-                    String.format("%s.%s@example.com", firstName.toLowerCase(), lastName.toLowerCase()),
-                    random.nextInt(16, 100));
-            System.out.println();
-            customerRepository.save(customer);
+//            var faker = new Faker(); // use of var : The var keyword is used for type inference in Java,
+//            // which means the compiler determines the type of the variable based on the right-hand side of the assignment.
+//            Random random = new Random();
+//
+//            Name name = faker.name();
+//            String firstName = name.firstName();
+//            String lastName = name.lastName();
+//            Customer customer = new Customer(
+//                    String.format("%s %s", firstName, lastName),
+//                    String.format("%s.%s@example.com", firstName.toLowerCase(), lastName.toLowerCase()),
+//                    random.nextInt(16, 100));
+//            customerRepository.save(customer);
         };
     }
 

@@ -19,7 +19,7 @@ import java.util.List;
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class CustomerService {
 
-    @Qualifier("jpa")
+    @Qualifier("jdbc")
     private final CustomerDao customerDao;
 
     public List<Customer> getAllCustomers() {
