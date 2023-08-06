@@ -1,6 +1,8 @@
 package com.vicenzo;
 
 
+import com.github.javafaker.Faker;
+import com.github.javafaker.Name;
 import com.vicenzo.customer.model.Customer;
 import com.vicenzo.customer.repository.CustomerRepository;
 import org.springframework.boot.CommandLineRunner;
@@ -10,6 +12,7 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 
 import java.util.List;
+import java.util.Random;
 
 @SpringBootApplication
 public class Main {
@@ -23,11 +26,19 @@ public class Main {
     @Bean
     CommandLineRunner runner(CustomerRepository customerRepository) {
         return args -> {
-            Customer alex = new Customer("Alex", "alex@gmail.com", 21);
-            Customer jamila = new Customer("Jamila", "jamila@gmail.com", 21);
+            var faker = new Faker(); // use of var : The var keyword is used for type inference in Java,
+            // which means the compiler determines the type of the variable based on the right-hand side of the assignment.
+            Random random = new Random();
 
-            List<Customer> customers = List.of(alex, jamila);
-//            customerRepository.saveAll(customers);
+            Name name = faker.name();
+            String firstName = name.firstName();
+            String lastName = name.lastName();
+            Customer customer = new Customer(
+                    String.format("%s %s", firstName, lastName),
+                    String.format("%s.%s@example.com", firstName.toLowerCase(), lastName.toLowerCase()),
+                    random.nextInt(16, 100));
+            System.out.println();
+            customerRepository.save(customer);
         };
     }
 

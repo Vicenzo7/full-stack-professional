@@ -14,8 +14,8 @@ public class CustomerListDataAccessRepository implements CustomerDao {
 
     static {
         customers = new ArrayList<>();
-        Customer alex = new Customer(1, "Alex", "alex@gmail.com", 21);
-        Customer jamila = new Customer(2, "Jamila", "jamila@gmail.com", 21);
+        Customer alex = new Customer(1L, "Alex", "alex@gmail.com", 21);
+        Customer jamila = new Customer(2L, "Jamila", "jamila@gmail.com", 21);
 
         customers.add(alex);
         customers.add(jamila);
@@ -28,7 +28,7 @@ public class CustomerListDataAccessRepository implements CustomerDao {
     }
 
     @Override
-    public Optional<Customer> selectCustomerById(Integer customerId) {
+    public Optional<Customer> selectCustomerById(Long customerId) {
         return customers.stream()
                 .filter(c -> c.getId().equals(customerId))
                 .findFirst();
@@ -46,14 +46,14 @@ public class CustomerListDataAccessRepository implements CustomerDao {
     }
 
     @Override
-    public boolean existsPersonWithId(Integer id) {
+    public boolean existsPersonWithId(Long id) {
         return customers.stream()
                 .anyMatch(c -> c.getId().equals(id));
 
     }
 
     @Override
-    public void deleteCustomerCustomerById(Integer id) {
+    public void deleteCustomerCustomerById(Long id) {
         customers.stream()
                 .filter(c -> Objects.equals(c.getId(), id))
                 .findFirst()

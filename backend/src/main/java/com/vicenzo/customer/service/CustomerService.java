@@ -26,7 +26,7 @@ public class CustomerService {
         return customerDao.selectAllCustomers();
     }
 
-    public Customer getCustomer(Integer customerId) {
+    public Customer getCustomer(Long customerId) {
         return customerDao.selectCustomerById(customerId)
                 .orElseThrow(() -> new ResourceNotFoundException("customer with id [%s] not found".formatted(customerId)));
     }
@@ -43,7 +43,7 @@ public class CustomerService {
         customerDao.insertCustomer(customer);
     }
 
-    public void deleteCustomerById(Integer customerId) {
+    public void deleteCustomerById(Long customerId) {
         // check if customer exist
         if (!customerDao.existsPersonWithId(customerId)) {
             throw new ResourceNotFoundException("customer with id [%s] not found".formatted(customerId));
@@ -51,7 +51,7 @@ public class CustomerService {
         customerDao.deleteCustomerCustomerById(customerId);
     }
 
-    public void updateCustomer(Integer customerId, CustomerUpdateRequest updateRequest) {
+    public void updateCustomer(Long customerId, CustomerUpdateRequest updateRequest) {
         // TODO: for jpa use getReferenceById(customerId) as it does
         Customer customer = getCustomer(customerId);
         boolean changes = false;
