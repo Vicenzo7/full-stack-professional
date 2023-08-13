@@ -54,7 +54,7 @@ public class CustomerJDBCDataAccessRepository implements CustomerDao {
     }
 
     @Override
-    public boolean existsPersonWithEmail(String email) {
+    public boolean existsCustomerWithEmail(String email) {
         var sql = """
                 SELECT count(id)
                 FROM customer
@@ -65,7 +65,7 @@ public class CustomerJDBCDataAccessRepository implements CustomerDao {
     }
 
     @Override
-    public boolean existsPersonWithId(Long id) {
+    public boolean existsCustomerWithId(Long id) {
         var sql = """
                 SELECT count(id)
                 FROM customer
