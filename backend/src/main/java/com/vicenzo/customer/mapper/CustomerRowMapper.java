@@ -1,4 +1,4 @@
-package com.vicenzo.customer;
+package com.vicenzo.customer.mapper;
 
 import com.vicenzo.customer.model.Customer;
 import org.springframework.jdbc.core.RowMapper;

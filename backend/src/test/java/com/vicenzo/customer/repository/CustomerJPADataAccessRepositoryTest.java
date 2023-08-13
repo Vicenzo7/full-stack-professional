@@ -1,16 +1,12 @@
 package com.vicenzo.customer.repository;
 
-import com.vicenzo.AbstractTestContainers;
 import com.vicenzo.customer.model.Customer;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.testcontainers.junit.jupiter.Testcontainers;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.verify;
 
 

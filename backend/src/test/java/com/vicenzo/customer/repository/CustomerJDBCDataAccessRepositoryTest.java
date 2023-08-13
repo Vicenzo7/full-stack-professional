@@ -2,13 +2,16 @@ package com.vicenzo.customer.repository;
 
 
 import com.vicenzo.AbstractTestContainers;
-import com.vicenzo.customer.CustomerRowMapper;
+import com.vicenzo.customer.mapper.CustomerRowMapper;
 import com.vicenzo.customer.model.Customer;
 import com.vicenzo.util.QueryExecutor;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.assertThat;

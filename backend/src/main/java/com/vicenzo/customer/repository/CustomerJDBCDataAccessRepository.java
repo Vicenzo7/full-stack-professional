@@ -1,6 +1,6 @@
 package com.vicenzo.customer.repository;
 
-import com.vicenzo.customer.CustomerRowMapper;
+import com.vicenzo.customer.mapper.CustomerRowMapper;
 import com.vicenzo.customer.model.Customer;
 import com.vicenzo.util.QueryExecutor;
 import lombok.RequiredArgsConstructor;
